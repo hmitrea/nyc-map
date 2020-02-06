@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { mapStylePicker, layerControl } from '../style';
+import React, { Component } from 'react'
+import { mapStylePicker, layerControl } from '../style'
 
 export const HEXAGON_CONTROLS = {
   showHexagon: {
@@ -44,7 +44,7 @@ export const HEXAGON_CONTROLS = {
     min: 1,
     max: 200
   }
-};
+}
 
 export const SCATTERPLOT_CONTROLS = {
   showScatterplot: {
@@ -60,7 +60,7 @@ export const SCATTERPLOT_CONTROLS = {
     min: 10,
     max: 200
   }
-};
+}
 
 const MAPBOX_DEFAULT_MAPSTYLES = [
   { label: 'Streets V10', value: 'mapbox://styles/mapbox/streets-v10' },
@@ -88,12 +88,12 @@ const MAPBOX_DEFAULT_MAPSTYLES = [
     label: 'Navigation Guidance Night V4',
     value: 'mapbox://styles/mapbox/navigation-guidance-night-v4'
   }
-];
+]
 
-export function MapStylePicker({ currentStyle, onStyleChange }) {
+export function MapStylePicker ({ currentStyle, onStyleChange }) {
   return (
     <select
-      className="map-style-picker"
+      className='map-style-picker'
       style={mapStylePicker}
       value={currentStyle}
       onChange={e => onStyleChange(e.target.value)}
@@ -104,29 +104,29 @@ export function MapStylePicker({ currentStyle, onStyleChange }) {
         </option>
       ))}
     </select>
-  );
+  )
 }
 
 export class LayerControls extends Component {
-  _onValueChange(settingName, newValue) {
-    const { settings } = this.props;
+  _onValueChange (settingName, newValue) {
+    const { settings } = this.props
     // Only update if we have a confirmed change
     if (settings[settingName] !== newValue) {
       // Create a new object so that shallow-equal detects a change
       const newSettings = {
         ...this.props.settings,
         [settingName]: newValue
-      };
+      }
 
-      this.props.onChange(newSettings);
+      this.props.onChange(newSettings)
     }
   }
 
-  render() {
-    const { title, settings, propTypes = {} } = this.props;
+  render () {
+    const { title, settings, propTypes = {} } = this.props
 
     return (
-      <div className="layer-controls" style={layerControl}>
+      <div className='layer-controls' style={layerControl}>
         {title && <h4>{title}</h4>}
         {Object.keys(settings).map(key => (
           <div key={key}>
@@ -143,49 +143,49 @@ export class LayerControls extends Component {
           </div>
         ))}
       </div>
-    );
+    )
   }
 }
 
 const Setting = props => {
-  const { propType } = props;
+  const { propType } = props
   if (propType && propType.type) {
     switch (propType.type) {
       case 'range':
-        return <Slider {...props} />;
+        return <Slider {...props} />
 
       case 'boolean':
-        return <Checkbox {...props} />;
+        return <Checkbox {...props} />
       default:
-        return <input {...props} />;
+        return <input {...props} />
     }
   }
-};
+}
 
 const Checkbox = ({ settingName, value, onChange }) => {
   return (
     <div key={settingName}>
-      <div className="input-group">
+      <div className='input-group'>
         <input
-          type="checkbox"
+          type='checkbox'
           id={settingName}
           checked={value}
           onChange={e => onChange(settingName, e.target.checked)}
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
 const Slider = ({ settingName, value, propType, onChange }) => {
-  const { max = 100 } = propType;
+  const { max = 100 } = propType
 
   return (
     <div key={settingName}>
-      <div className="input-group">
+      <div className='input-group'>
         <div>
           <input
-            type="range"
+            type='range'
             id={settingName}
             min={0}
             max={max}
@@ -196,5 +196,5 @@ const Slider = ({ settingName, value, propType, onChange }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
