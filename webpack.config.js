@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const CONFIG = {
   entry: {
-    app: './app.js'
+    app: './index.js'
   },
 
   devtool: 'source-map',
@@ -15,7 +15,7 @@ const CONFIG = {
       compress: true,
       disableHostCheck: true,   // That solved it
 
-   },      
+   },
   module: {
     rules: [
       {

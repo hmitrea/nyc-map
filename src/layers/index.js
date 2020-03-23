@@ -176,10 +176,10 @@ const load = (url) => {
 }
 function loadData () {
   return Promise.all([
-    load('data/trees/trees.csv'),
-    load('data/crimes/crimes.csv'),
-    load('data/sidewalk_quality/sidewalk_quality.json'),
-    load('data/311_requests/1m.csv')
+    load('data/trees.csv'),
+    load('data/crimes.csv'),
+    load('data/sidewalk_quality.json'),
+    load('data/1m.csv')
     // load('data/Building Footprints.geojson')
   ])
     .then(done)
