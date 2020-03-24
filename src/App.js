@@ -39,6 +39,8 @@ const makePoints = () => {
 function Root () {
   const [selection, setSelection] = useState('trees')
 
+
+
   const [data, setData] = useState({
 
     selectedIndex: choice,
@@ -53,13 +55,10 @@ function Root () {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await LoadLayers.load()
-      console.log(result)
-
-      setData(result)
+      LoadLayers.load().then(setData)
     }
     fetchData()
-  })
+  }, [])
 
   const _onSelect = () => {}
 
@@ -85,17 +84,17 @@ function Root () {
   }
 
   const _selectLayer = (e) => {
-    setSelection({ selectedIndex: e.target.id })
+
+    setSelection( e.target.id )
   }
 
-  const selectedIndex = 'trees'
   const layers = LoadLayers(data)
-    .filter(d => d.id === selectedIndex)
+    .filter(d => d.id === selection)
 
   return (
     <div>
       <ListView
-        selectedIndex={selectedIndex}
+        selectedIndex={selection}
         onClick={_selectLayer}
       />
 
