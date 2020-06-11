@@ -5,7 +5,7 @@ const layers = [
   'crimes',
   'sidewalk_quality',
   '311_requests',
-  'buildings'
+  //'buildings'
   /* 'sidewalk cleanliness',
      * 'restaurant inspections',
      * 'electricity consumption',
