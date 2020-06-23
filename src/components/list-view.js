@@ -48,7 +48,8 @@ const buildListItems = (selectedIndex) => {
 const ListView = (props) => {
   return (
     <div className='control-panel side-legend'>
-      <h1>Maps of New York City</h1>
+      <h1>New York City Map</h1>
+      <p>Suitability analysis for Appartment Buying</p>
       <ul
         className='legend'
         onClick={props.onClick}
