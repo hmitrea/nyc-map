@@ -94,7 +94,7 @@ const heatMap = (data, name) => {
     id: name,
     colorRange,
     coverage,
-    data: data[name],
+    data: data.heatmap,
     elevationRange: [0, 3000],
     elevationScale: 25,
     extruded: true,
@@ -108,66 +108,17 @@ const heatMap = (data, name) => {
   })
 }
 
-const scatter = (data, name) => {
-  return new ScatterplotLayer({
-    id: name,
-    getPosition: (d) => d,
-    getColor: colorSchemes[name],
-    radiusScale: 5,
-    getRadius: d => 5,
-    data: data[name],
-    outline: false,
-    parameters: {
-      // prevent flicker from z-fighting
-      [GL.DEPTH_TEST]: false,
-
-      // turn on additive blending to make them look more glowy
-      [GL.BLEND]: true,
-      [GL.BLEND_SRC_RGB]: GL.ONE,
-      [GL.BLEND_DST_RGB]: GL.ONE,
-      [GL.BLEND_EQUATION]: GL.FUNC_ADD
-    }
-    /* pickable: true,
-         * onHover: info => console.log('Hovered:', info),
-         * onClick: info => console.log('Clicked:', info) */
-  })
-}
-
-const lines = (data) => {
-  return new LineLayer({
-    id: 'flight-paths',
-    data: data,
-    strokeWidth: 1,
-    fp64: false,
-    getSourcePosition: d => d[0],
-    getTargetPosition: d => d[1],
-    getColor: () => [255, 0, 0, 100]
-  })
-}
-
-// Set your mapbox token here
 const done = (results) => {
   const data = {}
-
-  data.trees = results[0]
-  data.crimes = results[1]
-  data.sidewalk_quality = results[2]
-  data['311_requests'] = results[3]
-  // data['buildings'] = result[4]
-
-  processors.trees(data)
-  processors.crimes(data)
-  processors.streetRatings(data)
-  processors['311_requests'](data)
-  // processors['buildings'](data)
-
+  data.heatmap = results[0]
+  console.log(data)
   return data
 }
 
 const load = (url) => {
   return new Promise((resolve, reject) => {
     const fetch = (url.split('.')[1] == 'json' ? requestJSON : requestCSV)
-
+    console.log(url)
     fetch(url)
       .on('load', resolve)
       .on('error', reject)
@@ -175,12 +126,25 @@ const load = (url) => {
   })
 }
 function loadData () {
+  let complaints = [
+  '311-Blocked-Driveway',
+  '311-Street-Light-Condition',
+  '311-UNSANITARY-CONDITION',
+  '311-GENERAL-CONSTRUCTION',
+  '311-Water-System',
+  '311-HEAT-HOT-WATER',
+  '311-HEATING',
+  '311-Illegal-Parking',
+  '311-Noise---Residential',
+  '311-Noise---Street-Sidewalk',
+  '311-PLUMBING',
+  '311-Street-Condition'
+  ]
   return Promise.all([
-    load('data/trees.csv'),
-    load('data/crimes.csv'),
-    load('data/sidewalk_quality.json'),
-    load('data/1m.csv')
-    // load('data/Building Footprints.geojson')
+    load('data/311-Noise---Residential.csv'),
+    // load('data/311-Noise---Residential.csv'),
+    // load('data/311-PLUMBING.csv'),
+    // load('data/311-GENERAL-CONSTRUCTION.csv')
   ])
     .then(done)
 }
@@ -195,78 +159,28 @@ const processors = {
   },
   '311_requests': (data) => {
     data['311_requests'] = data['311_requests']
+    console.log(data)
+  // [  ('311-Blocked-Driveway'),
+  //   ('311-Noise---Residential'),
+  //   ('311-PLUMBING'),
+  //   ('311-GENERAL-CONSTRUCTION')]
     // .map(d => [+ d.Longitude, + d.Latitude])
-  },
-  trees: (data) => {
-    var cat = {
-      Good: 1,
-      Fair: 2,
-      Poor: 3
-    }
-
-    data.trees = data.trees.map((d) => [(+d.longitude),
-      (+d.latitude),
-      0,
-      cat[d.health]
-    ]
-    )
-  },
-  crimes: (data) => {
-    var cat = {
-      MISDEMEANOR: 1,
-      VIOLATION: 2,
-      FELONY: 3
-    }
-    data.crimes = data.crimes.map((d) => [(+d.Longitude),
-      (+d.Latitude),
-      0,
-      cat[d.LAW_CAT_CD]
-    ]
-    )
-  },
-  bike_stations: (results) => {
-    const beanList = results[0].bike_stations
-    const stations = {}
-    for (const bean of beanList) stations[bean.id] = bean
-
-    result.bike_stations = stations
-  },
-  bike_trips: (results) => {
-    const shadow = [40.75668720603179, -73.98257732391357]
-
-    const trips = results.bike_trips.map((row, n) => {
-      const source = results.stations[row['start station id']]
-      const target = resultsstations[row['end station id']]
-
-      return [
-        [source ? source.longitude : shadow[1],
-          source ? source.latitude : shadow[0]
-        ],
-        [target ? target.longitude : shadow[1],
-          target ? target.latitude : shadow[0]
-        ]
-      ]
-    })
-
-    data.bike_trips = trips
   }
 }
 
 const Layers = [
-  'trees',
-  'crimes',
-  'sidewalk_quality',
-  '311_requests',
-  'buildings'
+  ('311-Blocked-Driveway'),
+  ('311-Noise---Residential'),
+  ('311-PLUMBING'),
+  ('311-GENERAL-CONSTRUCTION')
 ]
 
 const LoadLayers = (data) => {
   return [
-    scatter(data, 'trees'),
-    scatter(data, 'crimes'),
-    geoJson(data, 'sidewalk_quality'),
-    heatMap(data, '311_requests'),
-    geoJson(data, 'buildings')
+    heatMap(data, '311-Blocked-Driveway'),
+    // heatMap(data, '311-Noise---Residential'),
+    // heatMap(data, '311-PLUMBING'),
+    // heatMap(data,'311-GENERAL-CONSTRUCTION')
   ]
 }
 LoadLayers.load = loadData

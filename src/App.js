@@ -11,6 +11,7 @@ import DelayedPointLayer from './layers/DelayedPointLayer'
 
 const layers = LoadLayers.layers
 require('./style.css')
+import {H3HexagonLayer} from '@deck.gl/geo-layers';
 
 const INITIAL_VIEW_STATE = {
   longitude: -73.91922208269459,
@@ -37,20 +38,10 @@ const makePoints = () => {
 }
 
 function Root () {
-  const [selection, setSelection] = useState('trees')
-
-
+  const [selection, setSelection] = useState('311-Blocked-Driveway')
 
   const [data, setData] = useState({
-
-    selectedIndex: choice,
-
-    settings: Object.keys(HEXAGON_CONTROLS).reduce(
-      (accu, key) => ({
-        ...accu,
-        [key]: HEXAGON_CONTROLS[key].value
-      })
-    )
+    selectedIndex: choice
   })
 
   useEffect(() => {
@@ -108,11 +99,6 @@ function Root () {
         <StaticMap mapboxApiAccessToken={MAPBOX_TOKEN} mapStyle='mapbox://styles/mapbox/dark-v9' />
       </DeckGL>
 
-      <Charts
-        all={data}
-        highlight={_onHighlight}
-        select={_onSelect}
-      />
     </div>
   )
 }

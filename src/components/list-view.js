@@ -1,24 +1,25 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 
-const layers = [
-  'trees',
-  'crimes',
-  'sidewalk_quality',
-  '311_requests',
-  //'buildings'
-  /* 'sidewalk cleanliness',
-     * 'restaurant inspections',
-     * 'electricity consumption',
-     * '311 requests',
-     * 'rodent inspection (yuck)',
-     * 'pollution' */
+
+
+let complaints = [
+'311-Blocked-Driveway',
+'311-Street-Light-Condition',
+'311-UNSANITARY-CONDITION',
+'311-GENERAL-CONSTRUCTION',
+'311-Water-System',
+'311-HEAT-HOT-WATER',
+'311-HEATING',
+'311-Illegal-Parking',
+'311-Noise---Residential',
+'311-Noise---Street-Sidewalk',
+'311-PLUMBING',
+'311-Street-Condition'
 ]
+const layers = complaints
 
 const exposition = {
-  trees: 'https://www.kaggle.com/keyshin/nyc-trees-a-first-look',
-  crimes: 'https://data.world/data-society/nyc-crime-data',
-  gdelt: 'http://www.gdeltproject.org/',
-  sidewalk_quality: 'lol.com'
 }
 
 const makeNameGood = (str) => {
@@ -33,7 +34,7 @@ const buildListItems = (selectedIndex) => {
     >
       <a
         onClick={(e) => { e.preventDefault() }}
-        href={exposition[title]}
+        href={'#'}
         target='_blank'
         id={title}
       >
@@ -45,19 +46,36 @@ const buildListItems = (selectedIndex) => {
      </li>)
   )
 }
+
+const List = styled.section`
+  background: transparent;
+  border-radius: 3px;
+  margin: 0 1em;
+  padding: 0.25em 1em;
+`
+
+const Blurb = styled.section`
+  border-radius: 3px;
+  margin: 0 1em;
+  padding: 0.25em 1em;
+  position: fixed;
+  top: 50px;
+  z-index: 1000;
+  background: lightgrey;
+  background-opacity: .9;
+  color: rgb(35, 28, 51);
+`
+
 const ListView = (props) => {
   return (
-    <div className='control-panel side-legend'>
-      <h1>New York City Map</h1>
-      <p>Suitability analysis for Appartment Buying</p>
-      <ul
-        className='legend'
-        onClick={props.onClick}
-      >
+    <Blurb>
+      <h1>Map of New York City</h1>
+      <p>Suitability Analysis for Appartment Rentals/Buying</p>
+      <List onClick={props.onClick}>
         {buildListItems(props.selectedIndex)}
-      </ul>
+      </List>
       <p>{props.exposition}</p>
-    </div>
+    </Blurb>
   )
 }
 
