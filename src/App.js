@@ -80,7 +80,7 @@ function Root () {
   }
 
   const layers = LoadLayers(data)
-    .filter(d => d.id === selection)
+  console.log('layers', layers)
 
   return (
     <div>
