@@ -79,8 +79,20 @@ function Root () {
     setSelection( e.target.id )
   }
 
-  const layers = LoadLayers(data)
-  console.log('layers', layers)
+  const layers = [new H3HexagonLayer({
+      id: 'h3-hexagon-layer' + 123,
+      data: '',
+      elevationScale: 20,
+      opacity: 0.8,
+      stroked: true,
+      filled: true,
+      extruded: true,
+      wireframe: true,
+      fp64: true,
+      getHexagon: d => (d.hex9),
+      getFillColor: d => [255, (1 - parseFloat(d.cnt) / 500) * 255, 0],
+      getElevation: d => parseFloat(d.cnt)
+    })]
 
   return (
     <div>
