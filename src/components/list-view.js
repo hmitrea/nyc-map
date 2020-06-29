@@ -4,18 +4,18 @@ import styled from 'styled-components'
 
 
 let complaints = [
-'311-Blocked-Driveway',
-'311-Street-Light-Condition',
-'311-UNSANITARY-CONDITION',
-'311-GENERAL-CONSTRUCTION',
-'311-Water-System',
-'311-HEAT-HOT-WATER',
-'311-HEATING',
-'311-Illegal-Parking',
-'311-Noise---Residential',
-'311-Noise---Street-Sidewalk',
-'311-PLUMBING',
-'311-Street-Condition'
+'Blocked-Driveway',
+'Street-Light-Condition',
+'UNSANITARY-CONDITION',
+'GENERAL-CONSTRUCTION',
+'Water-System',
+'HEAT-HOT-WATER',
+'HEATING',
+'Illegal-Parking',
+'Noise---Residential',
+'Noise---Street-Sidewalk',
+'PLUMBING',
+'Street-Condition'
 ]
 const layers = complaints
 
@@ -34,7 +34,7 @@ const buildListItems = (selectedIndex) => {
     >
       <a
         onClick={(e) => { e.preventDefault() }}
-        href={'#'}
+        href={'#' + title}
         target='_blank'
         id={title}
       >
@@ -71,6 +71,7 @@ const ListView = (props) => {
     <Blurb>
       <h1>Map of New York City</h1>
       <p>Suitability Analysis for Appartment Rentals/Buying</p>
+      <h4>311 complaint - heatmap</h4>
       <List onClick={props.onClick}>
         {buildListItems(props.selectedIndex)}
       </List>

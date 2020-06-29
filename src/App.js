@@ -26,12 +26,7 @@ const MAPBOX_TOKEN = // process.env.MapboxAccessToken; // eslint-disable-line
 
 
 function Root () {
-  const [selection, setSelection] = useState('311-Blocked-Driveway')
-
-  const [data, setData] = useState({
-    selectedIndex: 0
-  })
-
+  const [selection, setSelection] = useState('Noise---Residential')
 
   const _onWebGLInitialize = (gl) => {
     gl.enable(gl.DEPTH_TEST)
@@ -44,11 +39,12 @@ function Root () {
 
   const _selectLayer = (e) => {
     setSelection( e.target.id )
+    console.log( e.target.id )
   }
 
   const layers = new H3HexagonLayer({
       id: 'h3-hexagon-layer' + 123,
-      data: 'https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/data/Noise---Residential.json',
+      data: `https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/data/${selection}.json`,
 
       elevationScale: 20,
       opacity: 0.8,

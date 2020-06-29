@@ -2,7 +2,6 @@ import * as d3 from 'd3'
 import GL from '@luma.gl/constants'
 
 import { ScatterplotLayer, GeoJsonLayer, LineLayer, HexagonLayer } from 'deck.gl'
-import {HeatmapLayer} from '@deck.gl/aggregation-layers';
 
 import { csv as requestCSV, json as requestJSON } from 'd3-request'
 import {h3ToGeo} from "h3-js";
@@ -54,20 +53,7 @@ const heatMap = (data, name) => {
 // opacity: 1
 // });
 // return layer
-  return new H3HexagonLayer({
-    id: 'h3-hexagon-layer' + 123,
-    data: dat,
-    elevationScale: 20,
-    opacity: 0.8,
-    stroked: true,
-    filled: true,
-    extruded: true,
-    wireframe: true,
-    fp64: true,
-    getHexagon: d => (d.hex9),
-    getFillColor: d => [255, (1 - parseFloat(d.cnt) / 500) * 255, 0],
-    getElevation: d => parseFloat(d.cnt)
-  });
+
 }
 
 const done = (results) => {
@@ -88,18 +74,18 @@ const load = (url) => {
 }
 function loadData () {
   let complaints = [
-  '311-Blocked-Driveway',
-  '311-Street-Light-Condition',
-  '311-UNSANITARY-CONDITION',
-  '311-GENERAL-CONSTRUCTION',
-  '311-Water-System',
-  '311-HEAT-HOT-WATER',
-  '311-HEATING',
-  '311-Illegal-Parking',
-  '311-Noise---Residential',
-  '311-Noise---Street-Sidewalk',
-  '311-PLUMBING',
-  '311-Street-Condition'
+  'Blocked-Driveway',
+  'Street-Light-Condition',
+  'UNSANITARY-CONDITION',
+  'GENERAL-CONSTRUCTION',
+  'Water-System',
+  'HEAT-HOT-WATER',
+  'HEATING',
+  'Illegal-Parking',
+  'Noise---Residential',
+  'Noise---Street-Sidewalk',
+  'PLUMBING',
+  'Street-Condition'
   ]
   return Promise.all([
     load('data/311-Noise---Residential.csv'),
