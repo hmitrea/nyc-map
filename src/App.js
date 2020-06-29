@@ -58,7 +58,7 @@ function Root () {
       wireframe: true,
       fp64: true,
       getHexagon: d => d[0],
-      getFillColor: d => [255, (1 - d[1] / 500) * 255, 0],
+      getFillColor: d => [255, 0, (1 - d[1] / 500) * 255],
       elevationScale: 1,
       getElevation: d => d[1]
     })
