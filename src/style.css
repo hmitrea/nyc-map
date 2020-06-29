@@ -38,3 +38,8 @@ a:hover {
 .foreground {
   background: '#d8dee9'
 }
+
+.selected {
+  text-decoration: underline;
+  color: rgb(46, 124, 246) !important;
+}

@@ -26,13 +26,18 @@ const makeNameGood = (str) => {
   return str.replace('_', ' ')
 }
 
+const Link = styled.a`
+  color: white;
+  text-decoration: none;
+`;
+
 const buildListItems = (selectedIndex) => {
   return layers.map((title, i) =>
     (<li
       key={title}
       className={selectedIndex == title && 'selected'}
     >
-      <a
+      <Link
         onClick={(e) => { e.preventDefault() }}
         href={'#' + title}
         target='_blank'
@@ -42,7 +47,7 @@ const buildListItems = (selectedIndex) => {
           makeNameGood(title)
 
         }
-      </a>
+      </Link>
      </li>)
   )
 }
@@ -61,9 +66,9 @@ const Blurb = styled.section`
   position: fixed;
   top: 50px;
   z-index: 1000;
-  background: lightgrey;
+  background: rgb(41, 50, 60);
   background-opacity: .9;
-  color: rgb(35, 28, 51);
+  color: lightgrey;
 `
 
 const ListView = (props) => {

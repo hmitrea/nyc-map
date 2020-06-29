@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { StaticMap } from 'react-map-gl'
 import DeckGL from 'deck.gl'
 import _ from 'lodash'
+import {GeoJsonLayer} from '@deck.gl/layers';
 
 import { LayerControls, MapStylePicker, HEXAGON_CONTROLS } from './components/controls'
 import ListView from './components/list-view.js'
@@ -59,22 +60,29 @@ function Root () {
       getElevation: d => d[1]
     })
 
-     // layers = 
+      const lightSettings = {
+        lightsPosition: [-0.144528, 49.739968, 8000, -3.807751, 54.104682, 8000],
+        ambientRatio: 0.4,
+        diffuseRatio: 0.6,
+        specularRatio: 0.2,
+        lightsStrength: [0.8, 0.0, 0.8, 0.0],
+        numberOfLights: 2
+      }
+
+     // layers =
      //   new GeoJsonLayer({
      //    id: 'name',
-     //    data: '',
+     //    data:  `https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/Building%20Footprints2.json`,
      //    opacity: 0.8,
      //    stroked: true,
      //    filled: true,
-     //    extruded: true,
-     //    wireframe: true,
-     //    fp64: true,
-     //    getFillColor:  [255, 0, (1 - d[1] / 500) * 255],
-     //    getLineColor:  [255, 0, (1 - d[1] / 500) * 255],
-     //    lightSettings: LIGHT_SETTINGS,
+     //    extruded: false,
+     //    getFillColor:  [255, 0, (1 - 1 / 500) * 255],
+     //    getLineColor:  [255, 0, (1 - 1 / 500) * 255],
+     //    lightSettings: lightSettings,
      //    lineWidthScale: 10
      //  })
-     //
+
 
 
   return (
