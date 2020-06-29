@@ -42,7 +42,7 @@ function Root () {
     console.log( e.target.id )
   }
 
-  const layers = new H3HexagonLayer({
+  let layers = new H3HexagonLayer({
       id: 'h3-hexagon-layer' + 123,
       data: `https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/data/${selection}.json`,
 
@@ -58,6 +58,24 @@ function Root () {
       elevationScale: 1,
       getElevation: d => d[1]
     })
+
+     // layers = 
+     //   new GeoJsonLayer({
+     //    id: 'name',
+     //    data: '',
+     //    opacity: 0.8,
+     //    stroked: true,
+     //    filled: true,
+     //    extruded: true,
+     //    wireframe: true,
+     //    fp64: true,
+     //    getFillColor:  [255, 0, (1 - d[1] / 500) * 255],
+     //    getLineColor:  [255, 0, (1 - d[1] / 500) * 255],
+     //    lightSettings: LIGHT_SETTINGS,
+     //    lineWidthScale: 10
+     //  })
+     //
+
 
   return (
     <div>
