@@ -79,10 +79,10 @@ function Root () {
     setSelection( e.target.id )
   }
 
-  const layers = [new H3HexagonLayer({
+  const layers = new H3HexagonLayer({
       id: 'h3-hexagon-layer' + 123,
       data: 'https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/data/Noise---Residential.json',
-      
+
       elevationScale: 20,
       opacity: 0.8,
       stroked: true,
@@ -90,10 +90,11 @@ function Root () {
       extruded: true,
       wireframe: true,
       fp64: true,
-      getHexagon: d => console.log(d.hex9),
-      getFillColor: d => [255, (1 - parseFloat(d.cnt) / 500) * 255, 0],
-      getElevation: d => parseFloat(d.cnt)
-    })]
+      getHexagon: d => d[0],
+      getFillColor: d => [255, (1 - d[1] / 500) * 255, 0],
+      elevationScale: 1,
+      getElevation: d => d[1]
+    })
 
   return (
     <div>
@@ -108,7 +109,7 @@ function Root () {
         onChange={settings => this._updateLayerSettings(settings)}
       />)}
 
-      <DeckGL initialViewState={INITIAL_VIEW_STATE} controller layers={layers}>
+      <DeckGL initialViewState={INITIAL_VIEW_STATE} controller layers={[layers]}>
         <StaticMap mapboxApiAccessToken={MAPBOX_TOKEN} mapStyle='mapbox://styles/mapbox/dark-v9' />
       </DeckGL>
 
