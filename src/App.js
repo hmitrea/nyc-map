@@ -3,6 +3,7 @@ import { StaticMap } from 'react-map-gl'
 import DeckGL from 'deck.gl'
 import _ from 'lodash'
 import {GeoJsonLayer} from '@deck.gl/layers';
+import * as d3 from 'd3'
 
 import { LayerControls, MapStylePicker, HEXAGON_CONTROLS } from './components/controls'
 import ListView from './components/list-view.js'
@@ -43,22 +44,29 @@ function Root () {
     console.log( e.target.id )
   }
 
+  let colorHexagon =(d) => {
+    let rgb = d3.rgb(d3.interpolateMagma((d[1]+50) / 500))
+
+    return [rgb.r, rgb.g, rgb.b]
+  }
+
   let layers = new H3HexagonLayer({
       id: 'h3-hexagon-layer' + 123,
       data: `https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/data/${selection}.json`,
 
       elevationScale: 20,
       opacity: 0.8,
-      stroked: true,
+      stroked: false,
       filled: true,
       extruded: true,
-      wireframe: true,
+      wireframe: false,
       fp64: true,
       getHexagon: d => d[0],
-      getFillColor: d => [255, 0, (1 - d[1] / 500) * 255],
+      getFillColor: colorHexagon,
       elevationScale: 1,
       getElevation: d => d[1]
     })
+
 
       const lightSettings = {
         lightsPosition: [-0.144528, 49.739968, 8000, -3.807751, 54.104682, 8000],
