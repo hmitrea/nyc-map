@@ -80,7 +80,7 @@ function Root () {
      layers =
        new GeoJsonLayer({
         id: 'name',
-        data:  `https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/adnan.json`,
+        data:  `https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/adnan-no-fields.json`,
         opacity: 0.8,
         stroked: true,
         filled: true,
