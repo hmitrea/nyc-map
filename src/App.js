@@ -50,7 +50,7 @@ function Root () {
     return [rgb.r, rgb.g, rgb.b]
   }
 
-  let layers = new H3HexagonLayer({
+  let layers = [new H3HexagonLayer({
       id: 'h3-hexagon-layer' + 123,
       data: `https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/data/${selection}.json`,
 
@@ -65,7 +65,7 @@ function Root () {
       getFillColor: colorHexagon,
       elevationScale: 1,
       getElevation: d => d[1]
-    })
+    })]
 
 
       const lightSettings = {
@@ -76,20 +76,46 @@ function Root () {
         lightsStrength: [0.8, 0.0, 0.8, 0.0],
         numberOfLights: 2
       }
+      const COLOR_SCALE = [
+         // negative
+         [65, 182, 196],
+         [127, 205, 187],
+         [199, 233, 180],
+         [237, 248, 177],
 
-     layers =
+         // positive
+         [255, 255, 204],
+         [255, 237, 160],
+         [254, 217, 118],
+         [254, 178, 76],
+         [253, 141, 60],
+         [252, 78, 42],
+         [227, 26, 28],
+         [189, 0, 38],
+         [128, 0, 38]
+       ];
+
+       let colorScale = x => {
+         const i = Math.round(x * 7) + 4;
+         if (x < 0) {
+           return COLOR_SCALE[i] || COLOR_SCALE[0];
+         }
+         return COLOR_SCALE[i] || COLOR_SCALE[COLOR_SCALE.length - 1];
+       };
+     layers.push(
        new GeoJsonLayer({
         id: 'name',
         data:  `https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/adnan-no-fields.json`,
         opacity: 0.8,
         stroked: true,
         filled: true,
-        extruded: false,
-        getFillColor:  [255, 0, (1 - 1 / 500) * 255],
+        extruded: true,
+        getElevation: f => Math.random() * 100,
+        getFillColor:  f => colorScale(Math.random()),
         getLineColor:  [255, 0, (1 - 1 / 500) * 255],
         lightSettings: lightSettings,
         lineWidthScale: 10
-      })
+      }))
 
 
 
