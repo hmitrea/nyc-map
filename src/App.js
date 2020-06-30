@@ -77,19 +77,19 @@ function Root () {
         numberOfLights: 2
       }
 
-     // layers =
-     //   new GeoJsonLayer({
-     //    id: 'name',
-     //    data:  `https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/Building%20Footprints2.json`,
-     //    opacity: 0.8,
-     //    stroked: true,
-     //    filled: true,
-     //    extruded: false,
-     //    getFillColor:  [255, 0, (1 - 1 / 500) * 255],
-     //    getLineColor:  [255, 0, (1 - 1 / 500) * 255],
-     //    lightSettings: lightSettings,
-     //    lineWidthScale: 10
-     //  })
+     layers =
+       new GeoJsonLayer({
+        id: 'name',
+        data:  `https://raw.githubusercontent.com/adnan-wahab/nyc-map/master/adnan.json`,
+        opacity: 0.8,
+        stroked: true,
+        filled: true,
+        extruded: false,
+        getFillColor:  [255, 0, (1 - 1 / 500) * 255],
+        getLineColor:  [255, 0, (1 - 1 / 500) * 255],
+        lightSettings: lightSettings,
+        lineWidthScale: 10
+      })
 
 
 
