@@ -9,6 +9,7 @@ import { LayerControls, MapStylePicker, HEXAGON_CONTROLS } from './components/co
 import ListView from './components/list-view.js'
 import {H3HexagonLayer} from '@deck.gl/geo-layers';
 import {HeatmapLayer} from '@deck.gl/aggregation-layers';
+import styled from 'styled-components'
 
 require('./style.css')
 
@@ -28,6 +29,8 @@ const MAPBOX_TOKEN = // process.env.MapboxAccessToken; // eslint-disable-line
 
 
 function Root () {
+  let [showBuildings, setShowBuildings] = useState(false)
+
   const [selection, setSelection] = useState('Noise---Residential')
 
   const _onWebGLInitialize = (gl) => {
@@ -114,16 +117,21 @@ function Root () {
         getFillColor:  f => colorScale(Math.random()),
         getLineColor:  [255, 0, (1 - 1 / 500) * 255],
         lightSettings: lightSettings,
-        lineWidthScale: 10
+        lineWidthScale: 10,
+        visible: showBuildings
       }))
 
-
+      let Legend = styled.section`
+      display: fixed;
+      `;
 
   return (
     <div>
       <ListView
+      showBuildings={setShowBuildings}
         selectedIndex={selection}
         onClick={_selectLayer}
+        showBuildings={setShowBuildings}
       />
 
       {false && (<LayerControls
@@ -135,6 +143,9 @@ function Root () {
       <DeckGL initialViewState={INITIAL_VIEW_STATE} controller layers={[layers]}>
         <StaticMap mapboxApiAccessToken={MAPBOX_TOKEN} mapStyle='mapbox://styles/mapbox/dark-v9' />
       </DeckGL>
+
+      <Legend>
+      </Legend>
 
     </div>
   )
