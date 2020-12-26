@@ -1,4 +1,11 @@
+.idea
+.DS_Store
+.env
+.netlify
+.redwood
+dev.db
+dist
+dist-babel
 node_modules
-
-311.csv
-test_data/
+yarn-error.log
+web/public/mockServiceWorker.js
