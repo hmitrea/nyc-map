@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { mapStylePicker, layerControl } from '../style'
+import { mapStylePicker, layerControl } from './style'
 
 export const HEXAGON_CONTROLS = {
   showHexagon: {
